@@ -17,7 +17,7 @@ const GET_LESSON_QUERY = gql`
 export function Sidebar() {
 
     const { data } = useQuery<GetLessonsQueryResponse>(GET_LESSON_QUERY);
-    console.log(data?.lessons[0])
+    // console.log(data?.lessons[0])
 
     interface GetLessonsQueryResponse {
         lessons: {

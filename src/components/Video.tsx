@@ -1,39 +1,91 @@
 import { DefaultUi, Player, Youtube } from "@vime/react";
 import { CaretRight, DiscordLogo, FileArrowDown, Lightning } from "phosphor-react";
+import { gql, useQuery } from "@apollo/client";
 import '@vime/core/themes/default.css'
 
-export function Video() {
+interface videoProps {
+    lessonSlug: string;
+}
+
+interface GetLessonBySlugResponse {
+    lesson: {
+        title: string;
+        videoId: string;
+        descripition: string;
+        teacher: {
+            bio: string;
+            avatarURL: string;
+            name: string;
+        }
+    }
+}
+
+
+const GET_LESSON_BY_SLUG_QUERY = gql`
+    query GetLessonBySlug($slug: String) {
+        lesson(where: {slug: $slug}) {
+            title
+            videoId
+            description
+            teacher {
+                bio
+                avatarURL
+                name
+            }
+        }
+    }
+`;
+
+export function Video(props: videoProps) {
+
+    console.log(props);
+
+    const { data } = useQuery<GetLessonBySlugResponse>(GET_LESSON_BY_SLUG_QUERY, {
+        variables: {
+            slug: props.lessonSlug
+        }
+    });
+    // console.log(data);
+
+    if(!data) {
+        return(
+            <div className="flex flex-1">
+                <h1>Carregando...</h1>
+            </div>
+        );
+    }
+
     return (
         <div className="flex-1" >
             <div className="bg-black flex justify-center">
-                <div className="h-full w-full max-w-[1100] max-h-[60vh] aspect-video">
+                <div className="h-full w-full max-w-[1400px] max-h-[60vh] aspect-video">
                     <Player>
-                        <Youtube videoId="Exg8YBHB02s" />
+                        <Youtube videoId={data.lesson.videoId} />
                         <DefaultUi/>
                     </Player>
                 </div>
             </div>
 
-            <div className="p-8 max-[1100px] mx-auto">
+            <div className="p-8 max-w-[1400px] mx-auto">
 
                 <section className="flex items-start gap-16">
                     <div className="flex-1">
                         <h1 className="text-2xl font-bold">
-                            Aula 01 - Abertura do Ignite Lab
+                        {data.lesson.title}
                         </h1>
                         <p className="mt-4 text-gray-200 leading-relaxed">
-                            O que temos que ter sempre em mente é que a mobilidade dos capitais internacionais agrega valor aoestabelecimento do orçamento setorial
+                        {data.lesson.descripition}
                         </p>
 
                         <div className="flex items-center gap-4 mt-6">
                             <img 
-                                src="https://github.com/clesiorods.png" 
+                                src={data.lesson.teacher.avatarURL}
                                 alt=""
                                 className="h-16 w-16 rounded-full border-2 border-blue-500"
                             />
                             <div className="leading-relaxed">
-                                <strong className="font-bold text-2xl block" >Clesio Rodrigues</strong>
-                                <span className="text-gray-200 text-sm block" >Web Developer</span>
+                                <strong className="font-bold text-2xl block" >{data.lesson.teacher.name}</strong>
+                                <span className="text-gray-200 text-sm block" >{data.lesson.teacher.bio}</span>
                             </div>
                         </div>
 
