@@ -1,6 +1,11 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client"
 
-export const client = new ApolloClient({
-    uri: `https://api-sa-east-1.graphcms.com/v2/cl53c2uje2rkd01t8gbyj3rnc/master`,
+export const client = new ApolloClient({    
+    // uri: import.meta.env.VITE_API_URL,
+    uri: 'https://api-sa-east-1.graphcms.com/v2/cl53c2uje2rkd01t8gbyj3rnc/master',
+    headers: {
+        // 'Authorization': `Bearer ${import.meta.env.VITE_API_ACCESS_TOKEN}`
+        'Authorization': `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImdjbXMtbWFpbi1wcm9kdWN0aW9uIn0.eyJ2ZXJzaW9uIjozLCJpYXQiOjE2NTczOTI0MTMsImF1ZCI6WyJodHRwczovL2FwaS1zYS1lYXN0LTEuZ3JhcGhjbXMuY29tL3YyL2NsNTNjMnVqZTJya2QwMXQ4Z2J5ajNybmMvbWFzdGVyIiwibWFuYWdlbWVudC1uZXh0LmdyYXBoY21zLmNvbSJdLCJpc3MiOiJodHRwczovL21hbmFnZW1lbnQuZ3JhcGhjbXMuY29tLyIsInN1YiI6ImRiZTc1NGM5LTZkM2YtNGNiMy04MGRmLWZmY2RkMGI2ZDNkNCIsImp0aSI6ImNsNWU4bmVxbDBwbmQwMXVoZGJ6Yzc3MnUifQ.qBYnkD5lfU5K3d-kzaFinEkzhYAViFeH0yIvHf0bMaHTTXXAlErsfZoBGIsL57O3AXUUTL-9lMaM413Z-oDEaCxKncPHUGaP-mQFjrcUxqhDoW3EcYpiDacJ1DuKqRxl7Nwb9rXsYHBe5JE9c12kAsrICWu4S0sx1jnJtpe5YR2EJyKepHiANTuvHviV0dDaMJ8-88BbRuRSPchbiljhcazMgcLMkYf9PO2kdQZSwnIMi5tPObmM6LMMF9cLBM_Uno5kVo_DIOldoVShsJ0x3P7i9J3tEla29_gQm4rvIBaZSXCDGzAcIcKuGOT7u_vTLqBVVUclUX_vGUq58i6qqI8gJKPWrTnLAk-z-CuwC6eC3wD99j4HuMViLkGU8pfPEJuOqF3H-XRDUpiWk_yvkk2RlKKys5O4ky37Zj_sqp_wXIk3uy70PRpru4UjxaqJ8cXuLFnBp_9UP4SJAoXw4NGKhcZvW7cqIUH0cT_x1HfNw3vd2ArAc14Y4Kj6gjZHue5GkbaMx-m-77OakjX710dQR2R9d7IO9O3Fn5dSZNyA2KDOixVSNiznxNtVmJH6HJ0rBrCzXYuYosy67ZVokdMzJVzoc-TsLG8kMzsYfV90LKsPe323ZPF_nG4rFFYW5gUDenOnYV0KLWTGxnWejVpLf_AFezP-IOZSDIPATnM`
+    },
     cache: new InMemoryCache()
 })
